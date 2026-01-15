@@ -1,61 +1,62 @@
 ---
-description: 项目专属帮助（你应该先读什么、常用命令是什么）
+description: 使用引导（不知道该用什么命令时先来这里）
 agent: plan
 ---
 
-## 单一真相源
-- 规则：请先阅读 `AGENTS.md`
+你现在在做的是：把 AI 的工作固化为“可审计、可回滚、可验证”的闭环。
+
+如果你不知道该用哪个命令：先回答下面 3 个问题，然后按推荐路径走。
+
+## 先回答 3 个问题（决定你该走哪条路）
+1) **你能一句话说清楚要改哪里 + 验收是什么吗？**（能/不能）
+2) **你需要 AI 先帮你摸清上下文/找入口吗？**（需要/不需要）
+3) **这次是否涉及高风险动作？**（写代码/上线/发版/迁移）
+
+## 推荐默认路径（推荐 1）：先 `ulw`，再 `@plan → /start-work`
+适合：复杂需求、上下文很烦、涉及多模块、或需要上线。
+
+- 第一步（摸清上下文）：输入 `ulw`，用自然语言描述需求（允许模糊）
+- 第二步（严格落地）：`@plan → /start-work` 生成可执行计划（含验收/风险/回滚）
+- 第三步（若是长任务）：`/vibe/pwf-init`（完整模板）或 `/vibe/pwf-bootstrap`（最小模板）
+- 第四步（真写代码）：必须 `/vibe/apply <目标>` 进入写入门禁
+- 第五步（验证）：`/vibe/test` `/vibe/lint` `/vibe/build`（或 `make test/lint/build`）
+- 第六步（上线/发版/迁移）：分别走 `/vibe/deploy` `/vibe/release` `/vibe/db-migrate`
+
+## 备选路径（推荐 2）：直接 `@plan → /start-work`，不清楚才 `ulw`
+适合：简单需求、你能讲清上下文、改动范围小。
+
+- `@plan → /start-work`
+- 需要改文件：`/vibe/apply <目标>`
+- 验证：`/vibe/test` `/vibe/lint` `/vibe/build`
+
+## 一句话速查（你只想要答案）
+- **我只是要一个计划**：`/vibe/plan <需求>`
+- **我要真实改代码**：`/vibe/apply <目标>`（门禁）
+- **我要跑测试/定位失败**：`/vibe/test`
+- **我要跑 lint/build**：`/vibe/lint` / `/vibe/build`
+- **我要上线**：`/vibe/deploy <环境/目标>`（门禁）
+- **我要发版**：`/vibe/release <版本/目标>`（门禁）
+- **我要迁移数据库**：`/vibe/db-migrate <目标>`（门禁）
+
+## 内置模块（用来加速，不是必选）
+### 1) 长链路任务：planning-with-files（3-file 磁盘工作记忆）
+- `/vibe/pwf-init [project-name]`：官方完整模板
+- `/vibe/pwf-bootstrap`：最小模板
+- 三文件：`task_plan.md` / `findings.md` / `progress.md`
+
+### 2) UI/UX：ui-ux-pro-max-skill（本地检索）
+- 检索：`/vibe/uiux-search "<query>" --domain <domain> --stack <stack> --max-results <n>`
+- 自检（建议你测试前先跑一次）：`/vibe/uiux-selftest`
+
+## 门禁规则（无条件）
+任何真实写入/部署/发版/迁移都必须走门禁：
+- `/vibe/apply` `/vibe/deploy` `/vibe/release` `/vibe/db-migrate`
+
+## 配置入口（迷路时回到这里）
+- 规则单一真相源：`AGENTS.md`
 - Claude Code 入口：`CLAUDE.md`
-- OpenCode 项目配置：`opencode.jsonc`
-- 范式规划：`plans/ai-dev-paradigm-plan.zh.md`
+- OpenCode 配置：`opencode.jsonc`
+- oh-my-opencode 配置：`.opencode/oh-my-opencode.json`
+- 编排运行目录：`.sisyphus/`
 
-## 常用命令（门禁）
-- `/vibe/apply <目标>`：执行真实写入（强制审计 + 验证）
-- `/vibe/deploy <目标>`：部署/上线（构建 + 回滚）
-- `/vibe/release <目标>`：发版（清单 + 验证）
-- `/vibe/db-migrate <目标>`：数据库迁移（必须先确认）
-
-## 常用命令（日常）
-- `/vibe/plan <需求>`：生成可执行最小计划
-- `/vibe/review`：审查当前改动（基于 git diff）
-- `/vibe/test`：跑测试并基于输出给修复路径
-- `/vibe/lint`：跑 lint（前端优先）
-- `/vibe/build`：构建产物（前端 dist）
-- `/vibe/preview`：本地预览构建产物
-- `/vibe/ship <目标>`：一键闭环（plan→apply→test→build→deploy 的门禁编排）
-
-## 内置模块（已 vendored，无需额外安装）
-- UI/UX：`ui-ux-pro-max-skill`（本地数据库检索）
-  - `/vibe/uiux-search <query+flags>`：检索 UI/UX 方案（例：`"pricing page" --domain product --stack react`）
-  - `/vibe/uiux-selftest`：验证检索脚本可运行（不写入）
-- 长链路计划：`planning-with-files`（3-file pattern + hooks）
-  - `/vibe/pwf-bootstrap`：创建 `task_plan.md/findings.md/progress.md` 三文件（最小模板）
-  - `/vibe/pwf-init [project-name]`：用 planning-with-files 官方模板初始化（更完整）
-
-## oh-my-opencode 编排（可选但推荐）
-- 项目编排配置：`.opencode/oh-my-opencode.json`
-- 编排运行目录：`.sisyphus/`（plans/drafts）
-- 安装/诊断（需要 Bun）：
-  - `bunx oh-my-opencode install`
-  - `bunx oh-my-opencode doctor`
-- 两种用法：
-  - 省事但复杂：输入 `ulw`
-  - 精确可验证：`@plan` → `/start-work`
-    - planner 计划文件默认落在：`.sisyphus/plans/`
-
-### 选择指南（ulw vs @plan）
-```
-这是一个 quick fix / 单文件小改？
-  └─ YES → 直接正常提问（或用 /vibe/plan）
-  └─ NO  → 解释上下文很麻烦？
-             └─ YES → 用 ulw 让编排器自己并行摸清情况
-             └─ NO  → 需要严格验收、可验证执行吗？
-                        └─ YES → 用 @plan → /start-work
-                        └─ NO  → 用 ulw
-```
-
-### 门禁规则（无条件）
-- 任何真实写入/部署/发版/迁移都必须走门禁：
-  - `/vibe/apply` `/vibe/deploy` `/vibe/release` `/vibe/db-migrate`
-
-> 提示：你可以输入 `/` 打开命令面板。
+> 提示：输入 `/` 打开命令面板；输入 `ulw` 进入编排器。
