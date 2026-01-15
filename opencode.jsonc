@@ -1,0 +1,54 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // ==================== Vibe Project Config ====================
+  // 目标：让 OpenCode 在进入项目时就拿到“入口指引”，同时避免把超长 AGENTS.md 强行塞满上下文。
+
+  "instructions": [
+    "CLAUDE.md"
+  ],
+
+  // 说明：本项目自定义命令全部在 .opencode/command/vibe/（即 /vibe/*）。
+  // 如需使用 oh-my-opencode 编排：请配置 .opencode/oh-my-opencode.json，并用 @plan → /start-work。
+
+  "mcp": {
+    // 默认全部关闭：避免本机未安装对应命令时影响启动。
+    // 需要时再把 enabled 改为 true。
+
+    "augment-context-engine": {
+      "type": "local",
+      "command": ["auggie", "--mcp"],
+      "enabled": false
+    },
+
+    "mcp-deepwiki": {
+      "type": "local",
+      "command": ["npx", "-y", "mcp-deepwiki@latest"],
+      "enabled": false
+    },
+
+    "playwright": {
+      "type": "local",
+      "command": ["npx", "-y", "@playwright/mcp@latest"],
+      "enabled": false
+    },
+
+    "sequential-thinking": {
+      "type": "local",
+      "command": ["npx", "-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "enabled": false
+    },
+
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "enabled": false
+    }
+  },
+
+  "watcher": {
+    "ignore": [
+      ".sisyphus/**"
+    ]
+  }
+}

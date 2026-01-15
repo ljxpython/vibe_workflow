@@ -1,0 +1,48 @@
+# Codex MCP servers example
+# Path example: ~/.codex/config.toml
+# Source reference (schema/fields): https://deepwiki.com/openai/codex/7.1-mcp-server-configuration
+
+# -------------------- Local (stdio) MCP servers --------------------
+[mcp_servers.augment-context-engine]
+type = "stdio"
+command = "auggie"
+args = ["--mcp"]
+startup_timeout_sec = 30
+
+[mcp_servers.mcp-deepwiki]
+type = "stdio"
+command = "npx"
+args = ["-y", "mcp-deepwiki@latest"]
+startup_timeout_sec = 30
+
+enabled = false
+
+[mcp_servers.playwright]
+type = "stdio"
+command = "npx"
+args = ["-y", "@playwright/mcp@latest"]
+startup_timeout_sec = 30
+
+enabled = false
+
+[mcp_servers.sequential-thinking]
+type = "stdio"
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+startup_timeout_sec = 30
+
+enabled = false
+
+# -------------------- Remote (streamable HTTP) MCP servers --------------------
+# Codex uses streamable HTTP transport for remote MCP servers.
+# You may need to check Codex's exact key names if your version differs.
+
+[mcp_servers.context7]
+type = "streamable_http"
+url = "https://mcp.context7.com/mcp"
+startup_timeout_sec = 30
+
+enabled = false
+
+# If you have an API key/token, prefer env var-based headers/tokens.
+# bearer_token_env_var = "CONTEXT7_API_KEY"   # if server expects Bearer token

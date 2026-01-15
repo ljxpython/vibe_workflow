@@ -1,0 +1,46 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '[planning-with-files] Ready. Use /vibe/pwf-bootstrap (minimal) or /vibe/pwf-init (full template) to create task_plan.md/findings.md/progress.md if missing.'"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cat task_plan.md 2>/dev/null | head -30 || true"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '[planning-with-files] File updated. If this completes a phase, update task_plan.md status.'"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash planning-with-files/scripts/check-complete.sh task_plan.md"
+          }
+        ]
+      }
+    ]
+  }
+}

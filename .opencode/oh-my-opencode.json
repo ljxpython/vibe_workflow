@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
+  "sisyphus_agent": {
+    "disabled": false,
+    "planner_enabled": true,
+    "replace_plan": true,
+    "default_builder_enabled": false
+  },
+  "agents": {
+    "Sisyphus": {
+      "prompt_append": "\n\n## Vibe Project Rules (Command + Gate)\n- 本项目自定义命令全部在 /vibe/*。\n- 高风险动作必须走门禁命令：/vibe/apply /vibe/deploy /vibe/release /vibe/db-migrate。\n- 三条硬约束：不许误改/越界；不许跳过测试/验证；不许瞎猜（缺信息先问）。\n\n## Built-in Modules\n- UI/UX：优先使用 skill `ui-ux-pro-max`（底层模块：`ui-ux-pro-max-skill`）。\n- 长链路任务：优先使用 skill `planning-with-files`（3-file pattern + hooks）。\n"
+    }
+  },
+  "categories": {
+    "vibe-visual": {
+      "prompt_append": "优先委派前端/UI/UX工作给 frontend-ui-ux-engineer；涉及样式/布局时先调用 ui-ux-pro-max skill。"
+    },
+    "vibe-backend": {
+      "prompt_append": "后端优先 python-uv-backend；测试入口固定为 uv run python -m pytest；修复必须最小化。"
+    },
+    "vibe-research": {
+      "prompt_append": "需要外部资料或陌生库时，优先并行使用 librarian/explore background agents；结论必须可追溯。"
+    }
+  }
+}
