@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "bundle_id": "vibe-wf.v1",
+  "bundle_version": "0.1.0",
+  "description": "Project-local AI workflow bootstrap (OpenCode + /vibe commands + docs)",
+  "files_root": "files",
+  "managed_dir": ".vibe-wf",
+  "install": {
+    "copy": [
+      "AGENTS.md",
+      "CLAUDE.md",
+      "opencode.jsonc",
+      ".claude/settings.json",
+      "docs/vibe-wf/AI_PROJECT_RUNBOOK.md",
+      "docs/vibe-wf/USAGE.md",
+      "docs/vibe-wf/TOOLING.md",
+      "docs/vibe-wf/MCP_GUIDE.md",
+      ".opencode/command/vibe/help.md",
+      ".opencode/command/vibe/plan.md",
+      ".opencode/command/vibe/apply.md",
+      ".opencode/command/vibe/test.md",
+      ".opencode/command/vibe/lint.md",
+      ".opencode/command/vibe/build.md",
+      ".opencode/command/vibe/review.md",
+      ".opencode/command/vibe/pwf-bootstrap.md",
+      ".opencode/command/vibe/ship.md",
+      ".vibe-wf/snippets/mcp/README.txt",
+      ".vibe-wf/snippets/models/README.txt",
+      ".vibe-wf/snippets/api/README.txt"
+    ]
+  }
+}

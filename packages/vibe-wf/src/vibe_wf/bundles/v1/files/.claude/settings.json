@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '[vibe-wf] Project-local mode: this project does not modify system-level configs (e.g. ~/.config/opencode, ~/.codex).'"
+          }
+        ]
+      }
+    ]
+  }
+}

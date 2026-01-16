@@ -1,0 +1,29 @@
+[project]
+name = "vibe-wf"
+version = "0.1.0"
+description = "Project-local workflow bootstrap for OpenCode"
+authors = [
+    { name = "ljxpython", email = "1030470148@qq.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "rich>=14.2.0",
+    "typer>=0.21.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=9.0.2",
+]
+
+[project.scripts]
+vibe-wf = "vibe_wf.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+]
